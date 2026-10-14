@@ -1,2 +1,8 @@
-# ai4math
-This GitHub repository is for the final project of the Artificial Intelligence and Mathematics course.
+# 人工智能与数学
+此仓库用于同济大学数学科学学院“人工智能与数学”课程作业。
+目前进度：选题ing
+
+## 选题
+
+
+## 进度
