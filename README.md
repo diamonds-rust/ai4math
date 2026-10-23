@@ -1,6 +1,6 @@
 # 人工智能与数学 课程作业
 
-## 关于选题
+# 关于选题
 
 **研究问题：高阶包含概率能否决定 Horvitz-Thompson 估计量的渐近分布？**
 
@@ -47,4 +47,4 @@ Jiahua Chen证明了：**对于 $$r=2$$ 答案是否定的.**
 
 Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Normality.* arXiv:2610.09168, 2026.
 
-## 关于智能体
+# 关于智能体
