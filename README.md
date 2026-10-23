@@ -52,3 +52,5 @@ Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Norm
 
 
 # PART3 逐步优化记录(每1~2周更新一次)
+2026/10/23碎碎念：
+> 关于智能体架构的设计：拟在Moonshine上进行改造，设计一个专门面向处理该问题的智能体，在此之前先去补一些必备的统计学知识了
