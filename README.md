@@ -29,7 +29,7 @@ Jiahua Chen证明了：**对于 $$r=2$$ 答案是否定的.**
 
 这个反例的构造依赖两个关键要素：
 
-1. **有限射影平面上的平衡不完全区组设计(BIBD)**：射影平面 $$PG(2,q)$$ 产生一个 strength-2 的区组设计，其组合结构保证了一阶和二阶包含概率与 SRSWOR 精确一致(论文定理 2.1 的一般性结论).
+1. **有限射影平面上的平衡不完全区组设计(BIBD)**：射影平面 $$PG(2,q)$$ 产生一个 strength-2 的区组设计，其组合结构保证了一阶和二阶包含概率与 SRSWOR 精确一致(论文[1]定理 2.1 的一般性结论).
 2. **排列论证**：通过随机排列预设的区组总量，并用无放回抽样的指数不等式证明存在一个排列，使得构造出的有限总体满足 SRSWOR 中心极限定理的充分条件($$\max |y_i| \to 0$$)，同时保持 BIBD 抽样下的非正态极限分布.
 
 ### 1.3开放猜想：任意固定阶数 $$r$$
@@ -43,9 +43,9 @@ Jiahua Chen证明了：**对于 $$r=2$$ 答案是否定的.**
 这个猜想的理论意义在于：它断言低阶包含概率只能控制 HT 估计量的低阶矩，却无法控制样本指示变量的全局依赖结构.而正是这种依赖结构，即使在所有低阶矩完全一致时，仍然会体现在极限分布中.
 
 
-**问题来源文献**
+**参考文献**
 
-Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Normality.* arXiv:2610.09168, 2026.
+[1] Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Normality.* arXiv:2610.09168, 2026.
 
 # PART2 关于智能体
 
