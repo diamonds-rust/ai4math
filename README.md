@@ -1,4 +1,4 @@
-# <p align="center">HT-Researcher：面向HT统计量渐近分布相关猜想的统计研究智能体</p>
+# <p align="center">HT-Researcher统计研究智能体</p>
 
 <p align="center">于家伟 同济大学数学科学学院统计学专业</p>
 
