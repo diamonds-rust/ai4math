@@ -1,5 +1,7 @@
 # <p align="center">HT-Researcher：面向HT统计量渐近分布相关猜想的统计研究智能体</p>
 
+<p align="center">于家伟 同济大学数学科学学院统计学专业</p>
+
 # PART1 关于选题
 
 **研究问题：高阶包含概率能否决定 Horvitz-Thompson 估计量的渐近分布？**
