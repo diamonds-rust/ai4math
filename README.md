@@ -74,3 +74,8 @@ Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Norm
 
 # PART3 逐步优化记录
 
+本研究所得成果总结如下：
+
+>1.对Chen关于 $$r=2$$ 的构造进行了结构性加强，明确给出该反例的构造无法推广到 $$r \ge 3$$ 的理由.
+>2....
+
