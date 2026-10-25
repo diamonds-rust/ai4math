@@ -2,6 +2,10 @@
 
 <p align="center">于家伟 同济大学数学科学学院统计学专业</p>
 
+这是一个基于DeepMath团队的Moonshine(https://github.com/DeepMathLLM/Moonshine)进行改造以面向“高阶包含概率能否决定 Horvitz-Thompson 估计量的渐近分布？”这一统计学领域开放性问题的智能体.它将此问题拆分成可判定的五元组，并用精确的计算工具加以辅助裁决，代码见`Stastistics/`.
+
+---
+
 # PART1 关于选题
 
 **研究问题：高阶包含概率能否决定 Horvitz-Thompson 估计量的渐近分布？**
