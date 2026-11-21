@@ -1,0 +1,111 @@
+% !TEX program = xelatex
+% 统计刊物风格论文模板（中文正文，Times 西文，三线表，定理环境）
+% 用法：复制为 workspace/paper.tex，替换 <...> 占位内容，然后
+%   xelatex paper.tex && xelatex paper.tex
+% 或调用工具 ht_compile_latex(tex="workspace/paper.tex")
+\documentclass[10pt,a4paper]{article}
+
+% ---- 中文与版面（xeCJK 直接按文件挂字体，绕开 ctex 的 fontset 探测）----
+\usepackage{xeCJK}
+\setCJKmainfont[Path=C:/Windows/Fonts/,FontIndex=0]{simsun.ttc}
+% 注意：xeCJK 只挂 main font；\texttt 只用于 ASCII，避免再挂中文等宽字体触发 fontspec 查找
+\usepackage[margin=2.6cm]{geometry}
+\renewcommand{\abstractname}{摘要}
+\renewcommand{\refname}{参考文献}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+
+% ---- 数学与表格（须在 newtx 之前）----
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array,tabularx}
+\usepackage[font=small,labelfont=bf,labelsep=quad]{caption}
+\usepackage{fancyhdr}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+% ---- Times 风格（若已安装；务必放在 amssymb 之后，避免 \Bbbk 冲突）----
+\IfFileExists{newtxtext.sty}{%
+  \usepackage{newtxtext}%
+  \IfFileExists{newtxmath.sty}{\usepackage{newtxmath}}{}%
+}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small <短标题：不超过 60 字>}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{2em}
+
+% ---- 定理环境 ----
+\theoremstyle{plain}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{定义}
+\renewcommand{\proofname}{证明}
+
+\title{<标题>}
+\author{Yu\\[2pt]{\small AI4Math 课程项目 · 研究性作业}}
+\date{2026-10-23}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent <摘要：问题是什么；本文做了什么；哪些结论由确定性工具认证（给出 claim\_id）；哪些仍是候选或未证。最后一句说明本文不宣称解决整个猜想。>
+
+\medskip
+\noindent\textbf{关键词}\quad <包含概率；Horvitz--Thompson 估计量；区组设计；bent 函数；极限分布>
+
+\noindent\textbf{MSC 2020}\quad 62D05; 60F05; 05B05
+\end{abstract}
+
+\section{问题}
+<猜想的精确陈述；量词顺序：$r$ 固定，$N\to\infty$，$n\to\infty$；已知结果。>
+
+\section{构造}
+<设计 $D_1$、$D_2$ 与总体。超平面
+\begin{equation}\label{eq:hyperplane}
+  H_{S,\varepsilon} = \{x \in \mathbb{F}_2^m : S\cdot x = \varepsilon\},
+  \qquad S \neq 0,\ \varepsilon \in \{0,1\}.
+\end{equation}
+>
+
+\section{命题与证明}
+\begin{proposition}\label{prop:strength}
+<对全部偶数 $m$，仿射超平面族是 $3$-$(N, N/2, N/4-1)$ 设计，且强度恰为 $3$。>
+\end{proposition}
+\begin{proof}
+<计数证明；引用 \eqref{eq:hyperplane} 与账本里的陈述。>
+\end{proof}
+
+\section{精确验证}
+\begin{table}[htbp]
+  \centering
+  \caption{有限实例的精确数值}
+  \label{tab:instances}
+  \begin{tabular}{@{}ccccccc@{}}
+    \toprule
+    $m$ & $N$ & $k$ & $b$ & $\lambda_3$ & D2 方差 & D2 到正态 KS \\
+    \midrule
+    4 & 16 & 8 & 30 & 3 & 16 & 0.195804 \\
+    6 & 64 & 32 & 126 & 15 & 64 & 0.099328 \\
+    8 & 256 & 128 & 510 & 63 & 256 & 0.05002 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{局限与未证事项}
+<逐条列出，与陈述账本里的 \texttt{unproved} 条目对应。>
+
+\begin{thebibliography}{9}
+\bibitem{chen2026} J. Chen. Low-order inclusion probabilities do not determine asymptotic normality. arXiv:2610.09168, 2026.
+\bibitem{rothaus1976} O. S. Rothaus. On ``bent'' functions. \emph{Journal of Combinatorial Theory, Series A}, 20(3):300--305, 1976.
+\bibitem{hajek1960} J. Hájek. Limiting distributions in simple random sampling from a finite population. \emph{Publ. Math. Inst. Hung. Acad. Sci.}, 5:361--374, 1960.
+\bibitem{liding2017} X. Li, P. Ding. General forms of finite population central limit theorems with applications to causal inference. \emph{JASA}, 112(520):1759--1769, 2017.
+\end{thebibliography}
+
+\end{document}
