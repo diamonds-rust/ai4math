@@ -164,11 +164,11 @@ C. **判定与证据叠加**，在 LLM 之外加一层确定性判定和一层�
 
 原版只有 `verify_overall`(LLM 三维评审)，而经改造后我们有：
 
-1.先跑 `ht_verify_bundle`（确定性、一票否决）；
+A.先跑 `ht_verify_bundle`（确定性、一票否决）；
  
-2. 通过后再跑 `verify_overall` 审散文；
+B.通过后再跑 `verify_overall` 审散文；
 
-3. 两者冲突判 `inconclusive`。
+C.两者冲突判 `inconclusive`。
 
 LLM 负责“解释与写作”，工具负责“裁决数字”.
 
