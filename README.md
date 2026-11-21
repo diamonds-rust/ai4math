@@ -172,7 +172,7 @@ C.两者冲突判 `inconclusive`。
 
 LLM 负责“解释与写作”，工具负责“裁决数字”.
 
-## 2.4智能体核心文件
+## 2.4 智能体核心文件介绍
 ### 2.4.1 入口
 
 | 文件 | 用途 |
@@ -217,6 +217,61 @@ LLM 负责“解释与写作”，工具负责“裁决数字”.
 | `integration/install_into_moonshine.py` | in-place 安装器：打补丁、装资产、seed 项目 |
 | `tests/` | 16 个测试文件、122 个测试用例 |
 | `scripts/` | 边界检查与独立复核脚本 |
+
+## 2.5 四个skills介绍
+| skill | 触发 | 职责 |
+|---|---|---|
+| `ht-counterexample-protocol` | 每次领域尝试 | 五元组协议、九步流程、失败记录 schema |
+| `ht-r-design-search` | 进入设计构造 | 先判强度、再判方阵、再看块大小 |
+| `ht-method-portfolio` | 默认路线卡住 | 七条路线与阻塞信号，显式切换 |
+| `ht-paper-drafting` | 从计算转为写作 | 账本驱动、证明、排版 |
+
+
+## 2.6 如何进行研究
+### 2.6.1 调用流程
+1. 用户给出 prompt（建议用 `--prompt-file`）；
+2. `run_ht_agent.py` 解析路径，构造运行时；
+3. `moonshine_bridge` 注册 `ht_*` 工具、安装 skill/agent、打补丁；
+4. Moonshine 研究循环启动，加载 `AGENT.md` 与 skill 的 `Usage Hint`；
+5. agent 选择活动，调用 `ht_*` 工具；所有数字来自工具输出；
+6. 需要时写 `failed_path`，记录结构化失败；
+7. 收束时跑 `ht_verify_bundle`，通过则生成 `claim_id`；
+8. 结论写入 `statements.jsonl`，按四状态管理；
+9. 写作阶段用账本生成报告/论文，`check` 通过后排版.
+
+### 2.6.2 安装与运行
+```bash
+# 1) 给已有 editable 安装打补丁、装资产、seed 项目
+python integration/install_into_moonshine.py --inplace \
+  --source /path/to/Moonshine \
+  --home /path/to/moonshine-data \
+  --no-settings --seed-project --project ht_r3
+
+# 2) 检查接线
+python run_ht_agent.py --root /path/to/Moonshine \
+  --home /path/to/moonshine-data doctor
+
+# 3) 跑研究循环
+python run_ht_agent.py --root /path/to/Moonshine \
+  --home /path/to/moonshine-data --project ht_r3 \
+  run --iterations 3 --prompt-file your_prompt.txt
+```
+
+`doctor` 报 agent / skills / tools / project / provider 五项；`ready: no` 时先配置 provider.
+
+### 2.6.3自检与目录布局
+```bash
+python -m pytest tests -q
+python -m ht_moonshine selftest
+```
+
+```text
+moonshine-data/projects/ht_r3/
+├─ workspace/            # 每轮产物：problem.md、脚本、JSON、paper.tex
+├─ memory/by_type/       # verified_conclusion、failed_path、research_note 等
+└─ reports/              # 研究回合报告
+```
+
 
 ---
 
