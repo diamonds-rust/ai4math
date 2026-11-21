@@ -71,7 +71,18 @@ Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Norm
 ---
 
 # PART2 关于智能体
+## 2.1 总体思路
+目标是将“统计反例研究”这一问题拆成可执行、可裁决、可追溯的流程。
 
+三条原则：
+
+A. **循环不动**，将Moonshine 的研究循环、项目记忆、工具注册表、skill/agent 机制全部保留.
+B. **领域层重写**，skill 内容、agent 行为准则、活动绑定、失败语义、评审顺序按统计研究改写.
+C. **判定与证据叠加**，在 LLM 之外加一层确定性判定和一层证据管理.
+
+## 2.2
+
+---
 
 ---
 
@@ -79,7 +90,7 @@ Jiahua Chen. *Low-Order Inclusion Probabilities Do Not Determine Asymptotic Norm
 
 本研究所得成果总结如下：
 
->关于 $$r=2$$ ：对Chen关于 $$r=2$$ 的构造进行了结构性加强，明确给出该反例的构造思路无法推广到 $$r \ge 3$$ 的理由，详情见`Result/r2.pdf`.
+>关于 $$r=2$$ ：对Chen关于 $$r=2$$ 的构造进行了结构性加强，明确给出该反例的构造思路无法推广到 $$r \ge 3$$ 的理由，详情见`Result/r2.pdf`.(记录于2026.11.01)
 
 >关于 $$r \ge 3$$ ：
 
