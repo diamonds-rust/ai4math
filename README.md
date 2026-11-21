@@ -8,7 +8,7 @@
 
 # PART1 关于选题
 
-**<p align="center">高阶包含概率能否决定 Horvitz-Thompson 估计量的渐近分布？</p>**
+**<p align="center">低阶包含概率能否决定 Horvitz-Thompson 估计量的渐近分布？</p>**
 
 ## 1.1问题背景
 
