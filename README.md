@@ -278,7 +278,9 @@ moonshine-data/projects/ht_r3/
 
 # PART3 逐步优化记录
 
-本研究所接的Deepseek V4 Pro的API Key，所得成果总结如下：
+本研究所接的Deepseek V4 Pro的API，所得成果总结如下：
+
+**第一个月的成果(2026.10.20~2026.11.21)**
 
 >关于 $$r=2$$ ：对Chen关于 $$r=2$$ 的构造进行了结构性加强，明确给出该反例的构造思路无法推广到 $$r \ge 3$$ 的理由.详情见`Result/Phase Results/r2.pdf`.(记录于2026.11.01)
 
