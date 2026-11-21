@@ -1,0 +1,61 @@
+---
+name: ht-counterexample-protocol
+description: Fixed-r inclusion-probability counterexample protocol for the Horvitz-Thompson limit-law conjecture.
+compatibility: Works in Agent Skills-compatible research runtimes.
+allowed-tools: ht_order_r_obstruction ht_build_design ht_inclusion_probs ht_order3_witness ht_solve_population ht_check_srswor_clt ht_sample_total_law ht_hajek_decay ht_verify_bundle query_memory
+metadata:
+  title: HT Counterexample Protocol
+  category: builtin
+  tags: research,statistics,sampling,counterexample,horvitz-thompson
+  skill-standard: agentskills.io/v1
+---
+
+# HT Counterexample Protocol
+
+## Usage Hint
+- Use this skill for every attempt at the conjecture "agreement of inclusion probabilities through order r does not determine the HT limit law", including the open r >= 3 case.
+- Any numeric claim about inclusion probabilities, block totals, maxima, variances or limit laws MUST come from an `ht_*` tool result in this session; never assert one from reasoning or memory.
+
+## Summary
+- A counterexample is a 5-tuple: (r, design D1, design D2, population sequence, target law). Nothing counts as progress unless it completes or refutes one 5-tuple.
+- The exact arithmetic is the arbiter. Prose can be wrong; the tool output is the record.
+
+## Execution Steps
+1. **Fix the quantifiers first.** State r, and state that N -> infinity with n -> infinity while r stays fixed. Refuse attempts where r grows with N, and note that r = N is trivially true (all inclusion probabilities then determine the design) and therefore counts as no progress.
+2. **Build the design.** Call `ht_build_design` for the candidate family. If `is_design` is false, stop: a candidate that is not a strength-r design cannot satisfy the hypothesis.
+3. **Check order-r agreement subset by subset.** Call `ht_inclusion_probs` with the same r. Record `mismatch_counts` and `examples`. "It is a t-design so Theorem 2.1 applies" is not a substitute for this call.
+4. **Never reuse a lower-order construction.** Call `ht_order3_witness` once for the r = 3 check (collinear 1/B, non-collinear 0, required C(n,3)/C(N,3)); for any r >= 4, call `ht_order_r_obstruction(m, r)` first and record `lambda_values`: two different values mean the family has no strength r and cannot carry the counterexample at that order.
+5. **Prescribe the block totals and invert.** Call `ht_solve_population`. Two outcomes are legitimate: a population with `residual_max_abs = 0`, or an exact obstruction with `rank < augmented_rank`. Record whichever happened; do not silently switch designs to escape the obstruction.
+6. **Check the SRSWOR side.** Call `ht_check_srswor_clt` for the finite-N numbers, then `ht_hajek_decay` for the asymptotic trend. A single finite-N ratio below a threshold is not evidence of o(1); report the fitted slope.
+7. **Compute the block law exactly.** Call `ht_sample_total_law`. It returns both exact variances; equality is the point of the construction, and the skewness/K-S value is what separates the laws.
+8. **Gate the claim.** Call `ht_verify_bundle` with the full bundle. Only `overall: PASS` may be promoted; a FAIL or a missing call keeps the claim as a research note.
+9. **Log the failure if it failed.** Write the failed_path record with the schema below, including the exact numbers.
+
+## Tool Calls
+- `ht_order_r_obstruction`: exact order-r strength profile; the r >= 4 screen.
+- `ht_build_design`: construct and strength-verify candidate designs.
+- `ht_inclusion_probs`: exact inclusion probabilities vs SRSWOR, order by order.
+- `ht_order3_witness`: the exact order-3 failure of the projective-plane BIBD.
+- `ht_solve_population`: solve A y = w exactly, or report the rank obstruction.
+- `ht_check_srswor_clt`, `ht_hajek_decay`: SRSWOR-side normality and its decay evidence.
+- `ht_sample_total_law`: exact block-side law, moments, variance identity.
+- `ht_verify_bundle`: the deterministic gate; the only source of a PASS verdict.
+- `query_memory`: retrieve earlier attempts by design family and failure step before retrying.
+
+## File References
+- `projects/<project_slug>/memory/by_type/counterexample.md`
+- `projects/<project_slug>/memory/by_type/failed_path.md`
+- `projects/<project_slug>/memory/by_type/verification.md`
+- `projects/<project_slug>/workspace/problem.md`
+
+## Output Contract
+- Report the 5-tuple in this order: (r; design spec with v, b, k, lambda profile; exact mismatch counts; population status; law comparison).
+- Quote exact Fractions from tool output for probabilities and variances; quote skewness/K-S to 6 decimals with the tool named.
+- State explicitly which of the five obligations the current attempt satisfies and which one is open.
+
+## Notes
+- Forbidden: silently promoting an unverified number; treating "strength 2" as "order-3 agreement"; reporting an unseeded simulation; calling a finite-q K-S value an asymptotic result; promoting a claim without an `ht_verify_bundle` PASS or an explicit script-only label.
+- Allowed and encouraged: writing your own Python with `run_python_script` for exploration (custom constructions, ILP/SAT, larger instances). Keep it deterministic and seeded, save the script, and label any result it produces as script-only until an exact tool reproduces it.
+- When no symmetric design exists, do not force the r = 2 template: read `$ht-method-portfolio` and switch routes (weighted designs, design search, permutation freedom, impossibility proof).
+- Failure record schema (write it into failed_path even when the branch looks promising): `r`, `design_family`, `params` (v, b, k, lambda_r, group action), `symmetry` (is A square, rank), `failed_at` in {strength_check, pis_match, realizability, srswor_clt, law_target}, `witness` (first mismatching subset or rank/augmented rank or ratio), `obstruction_class`, `next_action`.
+- For r >= 3 the expected first obstruction is `A y = w` being over-determined (B > v). Treat it as the mathematical content of the attempt, not as a tool error.
