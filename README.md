@@ -172,6 +172,51 @@ C.两者冲突判 `inconclusive`。
 
 LLM 负责“解释与写作”，工具负责“裁决数字”.
 
+## 2.4智能体核心文件
+### 2.4.1 入口
+
+| 文件 | 用途 |
+|---|---|
+| `run_ht_agent.py` | 启动器：解析 `--root / --home / --project`，提供 `config`、`doctor`、`run`、`ask`、`shell`；流式输出与推理段落打印；`--prompt-file` 从 UTF-8 文件读任务 |
+| `ht_moonshine/cli.py` | 包内 CLI 入口 |
+| `ht_moonshine/__main__.py` | `python -m ht_moonshine` 入口 |
+
+### 2.4.2 领域算法与精确工具
+
+| 文件 | 用途 |
+|---|---|
+| `ht_moonshine/exact.py` | `Fraction` 精确算术、紧凑输出 |
+| `ht_moonshine/fields.py` | 有限域 `GF(p^k)`、Singer 差集 |
+| `ht_moonshine/designs.py` | 设计族构造、强度检查、λ 剖面 |
+| `ht_moonshine/inclusion.py` | 逐子集包含概率、与 SRSWOR 对比 |
+| `ht_moonshine/algebra.py` | `A y = w` 反解、`rank`/`augmented_rank`、方差恒等式 |
+| `ht_moonshine/laws.py` | 分位点、中心化、矩/偏度/KS、Hájek 比 |
+| `ht_moonshine/hyperplane.py` | 仿射超平面族、bent 总体、阶数强度剖面 |
+| `ht_moonshine/explore.py` | 设计搜索、权重搜索、置换搜索、模拟 |
+| `ht_moonshine/tools_impl.py` | 18 个工具 handler 的统一实现 |
+
+### 2.4.3 判定、证据与协议
+
+| 文件 | 用途 |
+|---|---|
+| `ht_moonshine/bundle.py` | `verify_bundle` 确定性门禁；`claim_id` 哈希；逐项检查结果 |
+| `ht_moonshine/ledger.py` | 陈述账本 `add / list / update / check / render`；四状态校验 |
+| `ht_moonshine/brief.py` | 项目任务书、规则、论文模板的 seed |
+| `ht_moonshine/moonshine_bridge.py` | 注册表子类、工具注册、资产安装、源码补丁、settings |
+| `assets/agents/builtin/ht-researcher/AGENT.md` | 领域 agent 行为准则 |
+| `assets/skills/builtin/*/SKILL.md` | 4 个领域 skill（协议、选设计、换路线、成稿） |
+| `assets/tools/definitions/*` | 18 个工具的 Markdown 定义、JSON schema、Usage Hint |
+
+### 2.4.4 输出与工程
+
+| 文件 | 用途 |
+|---|---|
+| `ht_moonshine/latex.py` | XeLaTeX 两遍编译，返回 `pages` 与首错 |
+| `ht_moonshine/typeset.py` | 无 LaTeX 时的 reportlab 兜底排版 |
+| `ht_moonshine/selftest.py` | 22 项自检 |
+| `integration/install_into_moonshine.py` | in-place 安装器：打补丁、装资产、seed 项目 |
+| `tests/` | 16 个测试文件、122 个测试用例 |
+| `scripts/` | 边界检查与独立复核脚本 |
 
 ---
 
