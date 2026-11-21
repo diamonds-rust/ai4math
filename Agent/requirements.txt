@@ -1,0 +1,16 @@
+# HT-Researcher 运行依赖
+#
+# 本包本身是纯标准库（精确算术、工具、门禁、账本），
+# 但运行研究循环需要先安装 Moonshine（DeepMathLLM）本体：
+#
+#   git clone <Moonshine 仓库>
+#   pip install -e /path/to/Moonshine
+#
+# 下面列出 Moonshine 声明的运行时依赖，供一次性安装：
+tiktoken>=0.7.0
+lancedb>=0.14.0
+chromadb>=0.5.0
+langgraph>=0.2.0
+
+# 可选：无 LaTeX 时的兜底排版
+# reportlab>=4.0
